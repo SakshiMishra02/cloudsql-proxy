@@ -16,37 +16,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: <YOUR-DEPLOYMENT-NAME>
+  name: workload-identity-test
 spec:
   selector:
     matchLabels:
-      app: <YOUR-APPLICATION-NAME>
+      app: workload-identity-test
   template:
     metadata:
       labels:
-        app: <YOUR-APPLICATION-NAME>
+        app: workload-identity-test
     spec:
-      serviceAccountName: <YOUR-KSA-NAME>
+      serviceAccountName: defaulttest
       # [END cloud_sql_proxy_k8s_sa]
       # [START cloud_sql_proxy_k8s_secrets]
       containers:
-      - name: <YOUR-APPLICATION-NAME>
+      - name: sql-proxy-demo
         # ... other container configuration
         env:
         - name: DB_USER
           valueFrom:
             secretKeyRef:
-              name: <YOUR-DB-SECRET>
+              name: demo
               key: username
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
-              name: <YOUR-DB-SECRET>
+              name: sakshi
               key: password
         - name: DB_NAME
           valueFrom:
             secretKeyRef:
-              name: <YOUR-DB-SECRET>
+              name: form
               key: database
       # [END cloud_sql_proxy_k8s_secrets]
       # [START cloud_sql_proxy_k8s_container]
